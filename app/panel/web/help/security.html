@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>第一次打开有安全提示？看这里</title>
+<link rel="stylesheet" href="/assets/app.css" />
+<style>
+  body { background: var(--paper); }
+  .doc { max-width: 760px; margin: 0 auto; padding: 42px 24px 80px; position: relative; z-index: 1; }
+  .doc-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-3); text-decoration: none; margin-bottom: 26px; }
+  .doc-back:hover { color: var(--accent); }
+  .doc h1 { font-family: var(--font-display); font-size: 30px; letter-spacing: -0.025em; margin: 0 0 10px; font-weight: 640; }
+  .doc-lead { font-size: 14.5px; color: var(--ink-2); line-height: 1.75; margin: 0 0 24px; }
+  .doc h2 { font-size: 16px; margin: 30px 0 10px; }
+  .doc p, .doc li { font-size: 13.2px; color: var(--ink-2); line-height: 1.8; }
+  .doc ol, .doc ul { padding-left: 20px; margin: 8px 0; }
+  .doc code { font-family: var(--font-mono); background: rgba(25,26,28,.06); padding: 1px 5px; border-radius: 5px; font-size: .92em; }
+  .note { display: flex; gap: 10px; padding: 14px 16px; border-radius: 12px; background: rgba(43,138,62,.06);
+    border: 1px solid rgba(43,138,62,.18); font-size: 12.8px; color: #2b5e37; line-height: 1.7; margin: 18px 0; }
+  .warn { display: flex; gap: 10px; padding: 14px 16px; border-radius: 12px; background: rgba(183,121,31,.07);
+    border: 1px solid rgba(183,121,31,.22); font-size: 12.8px; color: #6b4a12; line-height: 1.7; margin: 18px 0; }
+  .doc-foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-4); line-height: 1.7; }
+</style>
+</head>
+<body>
+<main class="doc">
+  <a class="doc-back" href="/">← 回到控制面板</a>
+  <h1>第一次打开有安全提示？</h1>
+  <p class="doc-lead">这是 Windows 对所有「从网上下载的压缩包」的标准提示，不是检测到了病毒。看懂原因、按下面做一次就好。</p>
+
+  <h2>为什么会出现</h2>
+  <p>通过浏览器、微信、网盘下载的文件，Windows 会给它打一个「来自 Internet」的标记（Mark of the Web）。解压后，里面的 <code>python.exe</code>、<code>ffmpeg.exe</code>、<code>.bat</code> 都带着这个标记，所以第一次运行时 Windows 会问一句：</p>
+  <ul>
+    <li>「打开这些文件可能会对你的计算机有害」</li>
+    <li>「Windows 已保护你的电脑」（SmartScreen）</li>
+    <li>「无法验证发布者」</li>
+  </ul>
+  <p>这些程序没有买商业代码签名证书（一年几千块，个人小工具一般都不买），所以显示「未知发布者」是正常的。</p>
+
+  <div class="note">
+    <span>✓</span>
+    <span><b>最省事的做法：先解锁压缩包，再解压。</b>这样解压出来的所有文件都不会再弹提示。</span>
+  </div>
+
+  <h2>方法一：解压前解除锁定（推荐）</h2>
+  <ol>
+    <li>在<b>压缩包</b>上点右键 →「属性」。</li>
+    <li>在「常规」最下面，勾上「解除锁定 / Unblock」，点「确定」。</li>
+    <li>再解压。之后运行 <code>启动面板.bat</code> 不会再提示。</li>
+  </ol>
+
+  <h2>方法二：已经解压了</h2>
+  <p>对整个文件夹解锁一次（在文件夹里打开 PowerShell 也可以）：</p>
+  <p><code>Get-ChildItem -Recurse | Unblock-File</code></p>
+  <p>或者对单个文件：右键 <code>启动面板.bat</code> → 属性 → 解除锁定。</p>
+
+  <h2>方法三：SmartScreen 拦了 bat</h2>
+  <p>点提示里的「更多信息」→「仍要运行」。只需要点这一次。</p>
+
+  <div class="warn">
+    <span>!</span>
+    <span><b>杀毒软件报 python.exe / ffmpeg.exe 可疑怎么办？</b>便携 Python 和 ffmpeg 是开源软件，很多杀软对「绿色版 exe」比较敏感。确认来源是你下载的这个包后，可以把整个文件夹加入杀软排除项，或选择「允许」。不要从别人的网盘随便下一个同名包。</span>
+  </div>
+
+  <h2>如何确认这个包没被改过</h2>
+  <p>发布页会给出压缩包的 SHA-256。在 PowerShell 里运行：</p>
+  <p><code>Get-FileHash .\xiaozhi-oneclick-0.2.0.zip -Algorithm SHA256</code></p>
+  <p>和发布页对比，一致就说明文件完整、没被替换。</p>
+
+  <p class="doc-foot">本工具不联网校验、不上传任何信息；密钥只存在本机。</p>
+</main>
+</body>
+</html>

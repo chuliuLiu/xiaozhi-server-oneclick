@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>小智AI本地服务 · 控制面板</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23191A1C'/%3E%3Ccircle cx='11' cy='15' r='2.2' fill='%23F7F5F0'/%3E%3Ccircle cx='21' cy='15' r='2.2' fill='%23F7F5F0'/%3E%3Cpath d='M12 22h8' stroke='%23D9480F' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="/assets/app.css" />
+</head>
+<body>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M4 4l16 16M9.9 6.2A9.9 9.9 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3 3.7M6.4 8.3A16.7 16.7 0 0 0 2.5 12s3.5 6 9.5 6a9.7 9.7 0 0 0 3.6-.7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15 5.6A2.6 2.6 0 0 0 12.4 3H6.6A2.6 2.6 0 0 0 4 5.6v5.8A2.6 2.6 0 0 0 6.6 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.6l4.7 4.7L19.5 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z" fill="currentColor"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2" fill="currentColor"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 6.3M20 5v6h-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8.5 8.5M10 5H6.6A2.6 2.6 0 0 0 4 7.6v9.8A2.6 2.6 0 0 0 6.6 20h9.8a2.6 2.6 0 0 0 2.6-2.6V14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.6l9 16.4H3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 9.5v4.6M12 17.2v.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v6M12 7.6v.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M8.5 10l3.5 3.5L15.5 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.2L12 5.6v12.8L7.2 14.5H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M15.4 9a4 4 0 0 1 0 6M18 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="7.4" cy="9.2" r="1.9" fill="currentColor"/><circle cx="12" cy="6.9" r="1.9" fill="currentColor"/><circle cx="16.6" cy="9.2" r="1.9" fill="currentColor"/><circle cx="18.2" cy="14" r="1.7" fill="currentColor"/><path d="M12 11.6c3 0 5.4 2.1 5.4 4.4 0 1.7-1.4 2.8-3.1 2.4l-1.2-.3a3 3 0 0 0-1.5 0l-1.2.3c-1.7.4-3.1-.7-3.1-2.4 0-2.3 2.4-4.4 5.4-4.4Z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="app" id="app" data-page="install">
+  <aside class="rail">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="currentColor"/><circle cx="11" cy="15" r="2.2" fill="#F7F5F0"/><circle cx="21" cy="15" r="2.2" fill="#F7F5F0"/><path d="M12.4 22h7.2" stroke="#D9480F" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </span>
+      <span class="brand-text"><strong>小智AI</strong><span>本地服务</span></span>
+    </div>
+
+    <nav class="rail-nav" aria-label="主导航">
+      <span class="rail-indicator" id="railIndicator" aria-hidden="true"></span>
+      <button class="nav-item" data-nav="install" aria-current="page">
+        <span class="idx">01</span><span class="label">环境检查</span><span class="nav-dot" data-dot="env"></span>
+      </button>
+      <button class="nav-item" data-nav="config">
+        <span class="idx">02</span><span class="label">密钥参数</span><span class="nav-dot" data-dot="key"></span>
+      </button>
+      <button class="nav-item" data-nav="run">
+        <span class="idx">03</span><span class="label">运行管理</span><span class="nav-dot" data-dot="srv"></span>
+      </button>
+    </nav>
+
+    <div class="rail-foot">
+      <div class="rail-meta">
+        <span>版本</span><span class="mono" id="railVersion">0.1.0</span>
+      </div>
+      <div class="rail-help">
+        <a class="rail-link rail-link--help" href="/help/bailian.html" target="_blank" rel="noopener">
+          千问AI平台 API Key 怎么获取
+          <svg class="ic"><use href="#i-external"/></svg>
+        </a>
+        <a class="rail-link rail-link--help" href="/help/faq.html" target="_blank" rel="noopener">
+          常见问题
+          <svg class="ic"><use href="#i-external"/></svg>
+        </a>
+        <a class="rail-link rail-link--help" href="/help/security.html" target="_blank" rel="noopener">
+          第一次打开有安全提示？
+          <svg class="ic"><use href="#i-external"/></svg>
+        </a>
+      </div>
+      <p class="rail-note">数据只存本机<br>不需要注册账号</p>
+      <button class="rail-exit-btn" id="btnExitPanel" type="button">
+        退出面板
+        <svg class="ic"><use href="#i-external"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="titles">
+        <h1 id="pageTitle">环境检查</h1>
+        <p id="pageDesc">检查运行环境是否正常。</p>
+      </div>
+      <div class="pills" id="pills">
+        <button class="pill" type="button" data-goto="install" id="pillEnv">
+          <i class="dot dot--idle"></i><span>环境</span><b>检测中</b>
+        </button>
+        <button class="pill" type="button" data-goto="config" id="pillKey">
+          <i class="dot dot--idle"></i><span>密钥</span><b>未配置</b>
+        </button>
+        <button class="pill" type="button" data-goto="run" id="pillSrv">
+          <i class="dot dot--idle"></i><span>服务</span><b>未启动</b>
+        </button>
+      </div>
+    </header>
+
+    <div class="pages">
+
+      <!-- ═══════════════════════ 01 环境检查 ═══════════════════════ -->
+      <section class="page" data-page="install" aria-labelledby="pageTitle">
+        <div class="page-inner">
+          <div class="banner banner--warn" id="pathBanner" hidden>
+            <svg class="ic"><use href="#i-alert"/></svg>
+            <div>
+              <b>这个文件夹的路径不合格</b>
+              <p>路径里不能有中文或空格，否则语音服务会起不来。请把整个文件夹移到类似 <code>D:\xiaozhi</code> 的位置。</p>
+              <p class="banner-path" id="pathBannerPath"></p>
+            </div>
+          </div>
+
+          <div class="grid grid--main">
+            <div class="col">
+              <section class="card" id="envCard">
+                <header class="card-head">
+                  <div>
+                    <h2>环境体检</h2>
+                    <p>这几项都变成绿色，就可以启动了。</p>
+                  </div>
+                  <button class="btn btn-ghost btn-sm" id="btnRecheck">
+                    <svg class="ic"><use href="#i-refresh"/></svg>重新检测
+                  </button>
+                </header>
+                <ul class="checklist" id="envList">
+                  <li class="sk-row"></li><li class="sk-row"></li><li class="sk-row"></li><li class="sk-row"></li>
+                </ul>
+              </section>
+
+              <section class="card" id="installCard">
+                <header class="card-head">
+                  <div>
+                    <h2>部署完整性</h2>
+                    <p>点「重新检查」确认包内运行时是否齐全；全绿后自动进入密钥/运行页。</p>
+                  </div>
+                  <span class="badge badge--ok" id="greenBadge">待检查</span>
+                </header>
+                <div class="install-actions">
+                  <button class="btn btn-primary btn-lg" id="btnGreenCheck">
+                    <svg class="ic"><use href="#i-refresh"/></svg>重新检查
+                  </button>
+                  <span class="muted">不需要安装，也不需要联网</span>
+                </div>
+                <ul class="checklist" id="greenList">
+                  <li class="sk-row"></li><li class="sk-row"></li><li class="sk-row"></li>
+                </ul>
+                <div hidden>
+                  <span id="installBadge"></span><span id="sumDisk"></span><span id="sumDown"></span>
+                  <span id="sumEta"></span><span id="sumEtaLabel"></span><ul id="depList"></ul>
+                  <div id="depsBox"></div><div id="installActions"></div><button id="btnInstall"></button>
+                  <div id="progressWrap"><b id="progressTitle"></b><small id="progressNote"></small>
+                  <span id="progressPct"></span><span id="progressSpin"></span><div id="progressBar"></div>
+                  <ul id="stepList"></ul><button id="btnCancelInstall"></button>
+                  <input type="checkbox" id="showInstallWindow" /><pre id="installLog"></pre></div>
+                </div>
+              </section>
+            </div>
+
+            <div class="col col--side">
+              <section class="card card--tips">
+                <header class="card-head"><div><h2>三个小提示</h2></div></header>
+                <ol class="tips">
+                  <li>路径不要有中文或空格，例如 <code>D:\xiaozhi</code>。</li>
+                  <li>语音走云端，需要联网，不联网机器狗不会说话。</li>
+                  <li>Key 只存这台电脑，不会上传到任何地方。</li>
+                </ol>
+                <a class="link link--inline" href="/help/uninstall.html" target="_blank" rel="noopener">
+                  怎么彻底卸载？
+                  <svg class="ic"><use href="#i-external"/></svg>
+                </a>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ 02 密钥参数 ═══════════════════════ -->
+      <section class="page" data-page="config" aria-labelledby="pageTitle">
+        <div class="page-inner">
+          <div class="grid grid--two">
+            <section class="card">
+              <header class="card-head">
+                <div><h2>语音</h2><p>听和说都走千问AI平台，一个 API Key 就够。</p></div>
+                <span class="badge badge--accent">必填</span>
+              </header>
+              <label class="field">
+                <span class="field-label">千问AI平台 API Key</span>
+                <span class="input-group">
+                  <input id="cfgKey" type="password" placeholder="sk-…" autocomplete="off" spellcheck="false" />
+                  <button class="icon-btn" type="button" data-toggle-pw="cfgKey" title="显示 / 隐藏">
+                    <svg class="ic"><use href="#i-eye"/></svg>
+                  </button>
+                </span>
+                <span class="field-hint">语音合成、语音识别、大模型共用一个 Key；只存本机。</span>
+                <a class="link link--inline" href="/help/bailian.html" target="_blank" rel="noopener">
+                  怎么获取 Key？
+                  <svg class="ic"><use href="#i-external"/></svg>
+                </a>
+              </label>
+
+              <div class="field">
+                <span class="field-label">语音模型</span>
+                <span class="select-wrap"><select id="cfgTtsModel" disabled>
+                  <option value="qwen-audio-3.1-tts-flash">qwen-audio-3.1-tts-flash</option>
+                </select></span>
+                <span class="field-hint">暂时只支持这一个模型。</span>
+              </div>
+
+              <div class="field">
+                <span class="field-label">音色</span>
+                <div class="voice-row">
+                  <span class="select-wrap">
+                    <select id="cfgVoice"></select>
+                  </span>
+                  <button class="btn btn-secondary btn-sm" id="btnPreview">
+                    <svg class="ic"><use href="#i-sound"/></svg>试听
+                  </button>
+                </div>
+                <div class="wave" id="previewWave" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <span class="field-hint" id="voiceHint">默认音色 longanhuan_v3.1，点「试听」确认。</span>
+              </div>
+
+              <label class="field">
+                <span class="field-label">自定义音色 ID（选填）</span>
+                <input id="cfgVoiceCustom" type="text" placeholder="声音复刻得到的 voice ID" spellcheck="false" />
+                <span class="field-hint">填了会覆盖上面的音色；要和语音模型配套。</span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">语速<span class="mono" id="speedVal">1.0×</span></span>
+                <input type="range" id="cfgSpeed" min="0.5" max="2" step="0.1" value="1" />
+              </label>
+
+              <div class="field">
+                <span class="field-label">识别模型</span>
+                <span class="select-wrap"><select id="cfgAsrModel" disabled>
+                  <option value="fun-asr-realtime">fun-asr-realtime</option>
+                </select></span>
+                <span class="field-hint">暂时只支持 fun-asr-realtime。</span>
+              </div>
+
+              <div class="card-foot" id="voiceSummary">识别 Paraformer 实时 · 合成 CosyVoice v2 · 24 kHz</div>
+            </section>
+
+            <section class="card">
+              <header class="card-head">
+                <div><h2>LLM</h2><p>决定机器狗怎么回答你。默认用千问AI平台，和语音共用一个 Key。</p></div>
+                <span class="badge badge--accent">必填</span>
+              </header>
+
+              <div class="field">
+                <span class="field-label">用哪家大模型</span>
+                <div class="segmented" id="vendorSeg" role="tablist"></div>
+              </div>
+
+              <label class="field">
+                <span class="field-label">服务地址 base_url （OpenAI格式）</span>
+                <input id="cfgBaseUrl" type="text" spellcheck="false" />
+              </label>
+
+              <div class="field">
+                <span class="field-label">模型</span>
+                <span class="input-group">
+                  <input id="cfgModel" type="text" list="modelList" spellcheck="false" />
+                  <button class="btn btn-secondary btn-sm" id="btnFetchModels">获取列表</button>
+                </span>
+                <datalist id="modelList"></datalist>
+                <span class="select-wrap" id="modelPickWrap" hidden>
+                  <select id="cfgModelPick"></select>
+                </span>
+                <span class="field-hint" id="modelHint">默认 deepseek-v4.1-flash-1017（百炼）：便宜、够用。</span>
+              </div>
+
+              <label class="field">
+                <span class="field-label">API Key</span>
+                <span class="input-group">
+                  <input id="cfgBrainKey" type="password" placeholder="留空 = 用上面的千问AI平台 Key" autocomplete="off" spellcheck="false" />
+                  <button class="icon-btn" type="button" data-toggle-pw="cfgBrainKey" title="显示 / 隐藏">
+                    <svg class="ic"><use href="#i-eye"/></svg>
+                  </button>
+                </span>
+                <span class="field-hint" id="brainKeyHint">这一家不是千问AI平台时才需要填。</span>
+              </label>
+
+              <!-- 绿色版下「记住聊天内容」不生效（配置生成未读取该字段），先隐藏避免误导 -->
+              <label class="switch-row switch-row--field" for="cfgMemory" hidden>
+                <span><b>记住聊天内容</b><small>只存本机；关掉后每次都是新对话。</small></span>
+                <input type="checkbox" id="cfgMemory" />
+                <span class="switch" aria-hidden="true"></span>
+              </label>
+
+              <details class="adv">
+                <summary>进阶<svg class="ic chev"><use href="#i-chev"/></svg></summary>
+                <label class="field">
+                  <span class="field-label">温度<span class="mono" id="tempVal">0.7</span></span>
+                  <input type="range" id="cfgTemp" min="0" max="1.5" step="0.1" value="0.7" />
+                </label>
+                <label class="field">
+                  <span class="field-label">最长回答</span>
+                  <input id="cfgMaxTokens" type="number" min="60" max="2000" step="20" value="300" />
+                </label>
+              </details>
+              <div class="test-row">
+                <button class="btn btn-secondary btn-sm" id="btnTestBrain">测试连接</button>
+                <span class="field-hint" id="brainTestResult">用这个 Key 拉一次模型列表，验证地址和 Key 是否对</span>
+              </div>
+              <div class="card-foot" id="brainSummary">阿里百炼 · deepseek-v4.1-flash-1017</div>
+            </section>
+          </div>
+
+          <section class="card">
+            <header class="card-head">
+              <div><h2>人设</h2><p>机器狗的性格和说话风格。</p></div>
+              <button class="btn btn-ghost btn-sm" id="btnResetPersona">恢复默认</button>
+            </header>
+            <label class="field">
+              <span class="field-label">提示词<span class="mono muted" id="promptCount">0 字</span></span>
+              <textarea id="cfgPrompt" rows="6" spellcheck="false"></textarea>
+              <span class="field-hint">改完保存就生效，不用重启服务。</span>
+            </label>
+            <div class="field">
+              <span class="field-label">唤醒词</span>
+              <p class="field-hint" style="margin:0">
+                唤醒词不在这里改：LinkDog 的唤醒词在 <b>WeXCube 小程序 → 工具 → 唤醒词配置</b>（固件侧，默认「小兵小兵」）。
+              </p>
+            </div>
+          </section>
+
+          <div class="savebar" id="saveBar">
+            <div class="savebar-info">
+              <i class="dot dot--ok" id="dirtyDot"></i>
+              <span id="saveInfo">所有改动都保存了</span>
+            </div>
+            <div class="savebar-actions">
+              <button class="btn btn-ghost" id="btnReloadCfg">重新读取</button>
+              <button class="btn btn-primary" id="btnSaveCfg" disabled>保存</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ 03 运行管理 ═══════════════════════ -->
+      <section class="page" data-page="run" aria-labelledby="pageTitle">
+        <div class="page-inner">
+          <section class="card card--run">
+            <div class="run-top">
+              <div class="run-state">
+                <span class="run-ring" id="runRing" aria-hidden="true"><i></i></span>
+                <div>
+                  <h2 id="runTitle">服务已停止</h2>
+                  <p id="runSub">点「启动服务」，大约 30 秒后机器狗就能连上来。</p>
+                </div>
+              </div>
+              <div class="run-actions">
+                <button class="btn btn-primary btn-lg" id="btnStart">
+                  <svg class="ic"><use href="#i-play"/></svg>启动服务
+                </button>
+                <button class="btn btn-secondary btn-lg" id="btnStop" disabled>
+                  <svg class="ic"><use href="#i-stop"/></svg>停止
+                </button>
+              </div>
+            </div>
+            <div class="proc-grid">
+              <div class="proc" id="procSrv">
+                <i class="dot dot--idle"></i>
+                <div class="proc-name"><b>语音服务</b><small class="mono" id="srvPort">8003 / 8005</small></div>
+                <em id="srvState">未运行</em>
+              </div>
+              <div class="proc" id="procMq">
+                <i class="dot dot--idle"></i>
+                <div class="proc-name"><b>MQTT + UDP 通道</b><small class="mono" id="mqPort">1883 / UDP 1883</small></div>
+                <em id="mqState">未运行</em>
+              </div>
+            </div>
+          </section>
+
+          <div class="grid grid--two grid--even">
+            <section class="card card--ota">
+              <header class="card-head">
+                <div><h2>给机器狗用的 OTA 地址</h2><p>写入方法：WeXCube小程序->工具->配网与绑定。</p></div>
+              </header>
+              <div class="ota-box" id="otaBox">
+                <code id="otaUrl">正在获取本机地址…</code>
+                <button class="icon-btn" id="btnCopyOta" title="复制">
+                  <svg class="ic"><use href="#i-copy"/></svg>
+                </button>
+              </div>
+              <label class="field field--tight">
+                <span class="field-label">用哪张网卡</span>
+                <span class="select-wrap"><select id="adapterSelect"></select></span>
+                <span class="field-hint" id="adapterHint">机器狗和这台电脑要在同一个 Wi-Fi。</span>
+              </label>
+              <div class="ota-actions">
+                <button class="btn btn-ghost btn-sm" id="btnFirewall">连不上？放行防火墙</button>
+                <button class="btn btn-ghost btn-sm" id="btnPorts">诊断端口</button>
+                <span class="field-hint">只放行专用网络；端口冲突时先诊断</span>
+              </div>
+              <details class="adv">
+                <summary>连接步骤<svg class="ic chev"><use href="#i-chev"/></svg></summary>
+                <ol class="steps-text">
+                  <li>机器狗开机，进入配网模式（指示灯闪烁）。</li>
+                  <li>手机连它发出的 <code>xiaozhi-xxxx</code> 热点。</li>
+                  <li>浏览器打开 <code>192.168.4.1</code>，填家里 Wi-Fi。</li>
+                  <li>把上面的地址粘进 OTA 一栏，保存后狗会自动重启。</li>
+                </ol>
+              </details>
+            </section>
+
+            <section class="card">
+              <header class="card-head">
+                <div><h2>设备</h2><p>连上来的机器狗会出现在这里。</p></div>
+                <button class="btn btn-ghost btn-sm" id="btnRefreshDevice" type="button">刷新</button>
+              </header>
+              <div class="device-empty" id="deviceEmpty">
+                <svg class="ic ic--lg"><use href="#i-paw"/></svg>
+                <b>还没有设备连上来</b>
+                <p>按左边的 OTA 地址配好网，狗重启后会自动连上；已经能聊天但这里没显示，点右上角「刷新」。</p>
+              </div>
+              <div class="device-card" id="deviceCard" hidden>
+                <div class="device-top"><b id="deviceName">小兵</b><span class="badge badge--ok">在线</span></div>
+                <div class="device-meta"><span>设备地址</span><b class="mono" id="deviceSeen">—</b></div>
+              </div>
+            </section>
+          </div>
+
+          <section class="card">
+            <header class="card-head">
+              <div><h2>自检</h2><p>不知道哪一步出问题，先点这里。</p></div>
+              <button class="btn btn-secondary btn-sm" id="btnSelftest">
+                <svg class="ic"><use href="#i-refresh"/></svg>运行自检
+              </button>
+            </header>
+            <ul class="checklist checklist--compact" id="selftestList">
+              <li class="check-empty">
+                点「运行自检」，一次检查：
+                <span class="mini-checks">
+                  <span class="chip chip--static">运行环境</span>
+                  <span class="chip chip--static">千问AI平台 Key</span>
+                  
+                  <span class="chip chip--static">语音端口</span>
+                  <span class="chip chip--static">语音试听</span>
+                  <span class="chip chip--static">全链路</span>
+                </span>
+              </li>
+            </ul>
+          </section>
+
+          <section class="card card--logs">
+            <header class="card-head">
+              <div><h2>日志</h2><p>排查问题用，平时不用看。</p></div>
+              <label class="check-inline"><input type="checkbox" id="logsToggle" /> 显示日志</label>
+            </header>
+            <p class="log-hint" id="logHint">勾选「显示日志」后开始加载，每 3 秒刷新一次。</p>
+            <div class="log-tools" id="logTools" hidden>
+              <div class="chips" id="logFilter">
+                <button class="chip" data-filter="" aria-pressed="true">全部</button>
+                <button class="chip" data-filter="ASR">识别</button>
+                <button class="chip" data-filter="TTS">合成</button>
+                <button class="chip" data-filter="LLM">回合</button>
+                <button class="chip" data-filter="ERROR">错误</button>
+              </div>
+              <div class="log-meta">
+                <span class="live"><i></i>实时</span>
+                <select id="logLines" class="select-mini">
+                  <option value="60">60 行</option>
+                  <option value="120" selected>120 行</option>
+                  <option value="300">300 行</option>
+                </select>
+                <button class="icon-btn" id="btnRefreshLogs" title="刷新"><svg class="ic"><use href="#i-refresh"/></svg></button>
+              </div>
+            </div>
+            <pre class="console console--dark" id="logConsole" hidden><span class="log-empty">勾选「显示日志」后开始加载</span></pre>
+          </section>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal-layer" id="modalLayer" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header class="modal-head">
+      <h3 id="modalTitle">确认安装</h3>
+      <button class="icon-btn" id="modalClose" title="关闭">✕</button>
+    </header>
+    <div class="modal-body" id="modalBody"></div>
+    <footer class="modal-foot">
+      <span class="modal-hint" id="modalHint"></span>
+      <button class="btn btn-ghost" id="modalCancel">取消</button>
+      <button class="btn btn-primary" id="modalOk">开始安装</button>
+    </footer>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="/assets/app.js"></script>
+<script>
+(function(){
+  function boot(){
+    var old=document.getElementById("envList"); if(old){var c=old.closest("section.card"); if(c)c.style.display="none";}
+    var gw=document.getElementById("procGw"); if(gw)gw.style.display="none";
+    var hd=document.querySelector(".topbar .dot, .top-status .dot, header .dot"); if(hd){hd.classList.remove("dot--idle");hd.classList.add("dot--ok");hd.style.background="#2e7d32";}
+    var st=document.querySelector(".top-status b, .topbar b"); if(st && /检测|装|半/.test(st.textContent)) st.textContent="已就绪";
+    document.querySelectorAll(".nav-dot").forEach(function(x){x.style.background="";x.style.opacity="";});
+    document.addEventListener("click",function(ev){
+      if(!ev.target.closest("#btnSaveCfg"))return;
+      setTimeout(async function(){
+        for(var i=0;i<20;i++){
+          try{var s=await fetch("/api/service/status").then(function(r){return r.json()});
+            if(s&&s.server&&s.server.state==="running"){var nav=document.querySelector('[data-nav="run"]');if(nav)nav.click();return;}
+          }catch(e){}
+          await new Promise(function(r){setTimeout(r,1000)});
+        }
+      },1500);
+    },true);
+    var btn=document.getElementById("btnGreenCheck"), list=document.getElementById("greenList"), badge=document.getElementById("greenBadge");
+    async function run(){
+      if(list)list.innerHTML='<li style="padding:10px 2px;color:#666">检查中…</li>';
+      try{
+        var r=await fetch("/api/green/env").then(function(x){return x.json()});
+        if(list)list.innerHTML=(r.checks||[]).map(function(c){return '<li style="display:flex;justify-content:space-between;padding:10px 2px;border-bottom:1px solid #e7e5df"><span>'+c.name+'</span><b style="color:'+(c.ok?"#2e7d32":"#b4552e")+'">'+(c.ok?"正常":"异常")+'</b></li>'}).join("");
+        if(badge){badge.textContent=r.ok?"全部正常":"有异常";badge.className="badge "+(r.ok?"badge--ok":"badge--warn");}
+        var ed=document.querySelector('[data-dot="env"]'); if(ed){ed.style.background=(r.ok?"#2e7d32":"#b4552e");ed.style.opacity="1";}
+        return r;
+      }catch(e){ if(list)list.innerHTML='<li style="color:#b4552e;padding:8px">检查失败：'+e+'</li>'; return {ok:false}; }
+    }
+    if(btn)btn.onclick=run;
+    setTimeout(async function(){
+      var r=await run(); if(!r.ok)return;
+      try{
+        var s=await fetch("/api/settings").then(function(x){return x.json()});
+        var has=!!(s&&s.settings&&s.settings.keys&&s.settings.keys.bailian);
+        if(has){
+          // 只在确认服务没在跑时才启动：否则每次打开/刷新页面都会把正在跑的服务先杀掉再重启
+          // （green.start() 第一步就是 stop()），机器狗会当场断线卡住。
+          var st=null;
+          try{st=await fetch("/api/service/status").then(function(x){return x.json()});}catch(e){}
+          if(st&&!st.any_running){await fetch("/api/service/start",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"});}
+        }
+        var nav=document.querySelector('[data-nav="'+(has?"run":"config")+'"]'); if(nav)nav.click();
+      }catch(e){}
+    },800);
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
+})();
+</script>
+</body>
+</html>

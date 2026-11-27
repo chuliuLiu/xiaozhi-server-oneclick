@@ -1,0 +1,10 @@
+{
+  "product": "小智本地服务·一键版",
+  "version": "0.11.0",
+  "build": "2026-11-17",
+  "stage": "绿色版整合（Gitee 分发 / 启动幂等 / Key 状态机 / ASR IPv4）",
+  "upstream": "xiaozhi-esp32-server 0.9.8",
+  "python": "3.11.18",
+  "min_windows": "10 1809",
+  "note": "独立部署包；不读取、不修改安装目录以外的任何文件。"
+}

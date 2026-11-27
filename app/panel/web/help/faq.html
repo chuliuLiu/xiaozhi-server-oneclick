@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>常见问题 · 小智本地服务</title>
+<link rel="stylesheet" href="/assets/app.css" />
+<style>
+  body { background: var(--paper); }
+  .doc { max-width: 760px; margin: 0 auto; padding: 42px 24px 80px; position: relative; z-index: 1; }
+  .doc-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-3); text-decoration: none; margin-bottom: 26px; }
+  .doc-back:hover { color: var(--accent); }
+  .doc h1 { font-family: var(--font-display); font-size: 30px; letter-spacing: -0.025em; margin: 0 0 10px; font-weight: 640; }
+  .doc h2 { font-size: 15.5px; margin: 26px 0 8px; }
+  .doc p, .doc li { font-size: 13.2px; color: var(--ink-2); line-height: 1.8; }
+  .doc ul { padding-left: 20px; }
+  .doc code { font-family: var(--font-mono); background: rgba(25,26,28,.06); padding: 1px 5px; border-radius: 5px; font-size: .92em; }
+  .doc-foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-4); line-height: 1.7; }
+</style>
+</head>
+<body>
+<main class="doc">
+  <a class="doc-back" href="/">← 回到控制面板</a>
+  <h1>常见问题</h1>
+  <p class="doc-lead">都是实测踩过的，按顺序看。</p>
+
+  <h2>1. 第一次点「启动服务」，大脑网关好了，语音服务一直「启动中」</h2>
+  <p>第一次启动要初始化 ASR/TTS/VAD，**30–60 秒**是正常的；页面每 2.5 秒刷新一次状态。
+  超过 90 秒还没变成「运行中」，页面会显示**启动超时**并提示看日志。</p>
+  <p>如果遇到卡住：点「停止」再点「启动」通常就好了（这是 0.2.x 的老问题；
+  0.3.2 已加启动锁，自动启动和手点按钮不会再撞车，并会把超时原因写进日志）。
+  还不行就点「诊断端口」，多半是端口被别的程序占了。</p>
+
+  <h2>2. 狗只会说「这个模型还没开通，让主人换个试试」</h2>
+  <p>这不是连到假网关，是**网关把百炼的真实报错翻成了人话**：大脑模型名过期了。
+  百炼的模型名变化很快（比如 <code>qwen-flash</code> 已经下线），旧配置就会 404。</p>
+  <p>处理：面板「密钥参数 → 大脑」→ 点「获取列表」→ 选一个当前可用的（例如
+  <code>qwen3.8-flash</code>）→「测试连接」→ 保存。0.3.2 会自动把旧模型名迁移掉。</p>
+
+  <h2>2.5 识别不出来 / 狗听不清</h2>
+  <p>语音识别模型要用 <code>fun-asr-realtime</code>（百炼当前的实时识别）。旧的
+  <code>paraformer-realtime-v2</code> 已经下线，选了会识别失败；0.3.3 会自动把它迁移成
+  <code>fun-asr-realtime</code>，面板「自检」里也会单独显示当前识别模型。</p>
+
+  <h2>2.6 想用便宜的 DeepSeek</h2>
+  <p><b>默认是「阿里百炼」+ DeepSeek 模型</b>（<code>deepseek-v4.1-flash</code>，和语音同一个 Key）。
+  如果你要用 DeepSeek 官网，选供应商「DeepSeek 官网」，地址会变成 <code>api.deepseek.com</code>，需要单独去 DeepSeek 申请 Key（和百炼不通用）。
+  想换更便宜的版本可以在模型下拉里选 <code>deepseek-v4.1-flash-1017</code>，点「测试连接」确认能用再保存。</p>
+  <h2>3. 设备在／离线状态更新有点慢</h2>
+  <p>面板每 **2.5 秒**探测一次机器狗与服务端的连接；设备断电后，Windows 的 TCP 连接
+  可能要几秒到几十秒才彻底断开，所以「离线」会比你关设备晚一点，这是网络层的正常延迟。</p>
+
+  <h2>4. 点「停止」成功了，但端口还显示被占用</h2>
+  <p>三种可能：① 上个进程还没完全退出（0.3.1 起会等端口释放并回报）；② 端口被别的软件占着；
+  ③ 端口落在 Windows/Hyper-V 的保留段里（没人监听但绑不上）。</p>
+  <p>点「诊断端口」：会列出每个端口的状态和占用进程；「换端口并启动」会自动避开。
+  换端口后 **OTA 地址会变，要重新填到机器狗里**。</p>
+
+  <h2>5. 自检里的「语音合成试听」</h2>
+  <p>0.3.2 起会**真的合成一句**再判断，不再跳过；没填 Key 会直接标红。</p>
+
+  <h2>6. 第一次打开有安全提示 / 杀软报毒</h2>
+  <p>见 <a href="/help/security.html">第一次打开有安全提示？</a>（压缩包先「解除锁定」再解压即可）。</p>
+
+  <h2>7. 点「获取列表」说 Key 不对，但「测试连接」能看到 182 个模型</h2>
+  <p>0.3.5 的 bug：获取列表把界面上脱敏的 <code>sk-****lian</code> 当成真 Key 发出去，
+  真 Key 只剩后四位当然 401。0.3.6 已改成"留空就用本机已存的 Key"，两个按钮走同一套逻辑。</p>
+
+  <h2>8. 切了识别模型后，语音服务一直「启动中」</h2>
+  <p>先点「停止」，等状态变成"已停止"，再点「启动」。0.3.6 起启动会等 12 秒：
+  进程如果直接退出，会弹窗把服务端日志最后 20 行给你；超过 90 秒没监听会标成"启动超时"。</p>
+  <p>如果日志里是 <code>ModuleNotFoundError</code>，回「安装部署」重装依赖；
+  是 <code>Address already in use</code>，点「诊断端口」换端口。</p>
+  <h2>9. TTS 报 `request timeout after 23 seconds` / 1007</h2>
+  <p>这是百炼的 TTS 会话开了之后<b>23 秒没收到文本</b>被它自己掐掉——通常是 LLM 首字太慢。
+  0.3.7 起改成「第一段文本到了才开 TTS 会话」，不会再空等超时；如果回答还是很慢，
+  换更快的模型（<code>deepseek-v4.1-flash-1017</code>）或看网关日志里的首字耗时。</p>
+
+  <h2>10. ASR 报 `timed out during handshake`</h2>
+  <p>到百炼实时识别的 WebSocket 握手超时，多为网络抖动/代理。0.3.7 把握手超时放宽到 20 秒并自动重试一次；
+  频繁出现就检查代理、VPN 或换个网络。</p>
+
+  <h2>11. 说「退下」它不退出，还在听</h2>
+  <p>0.3.7 把「退下 / 退下吧 / 拜拜 / 再见」加进了退出命令，说完服务端会结束这次会话。
+  <b>改完要保存并重启语音服务</b>才生效。注意：设备端的唤醒词是固件决定的，服务端只能决定"听到后怎么处理"。</p>
+
+  <h2>12. 唤醒词改了没反应</h2>
+  <p><b>名字输入已移除</b>（之前"改名自动替换提示词/自动加唤醒词"是错的，已撤掉）。
+  唤醒词保存在服务端，只决定"听到这句后怎么处理"；<b>真正叫醒设备的是固件内置唤醒词</b>，
+  改这里通常换不了唤醒词。多数固件能唤醒的是「你好小兵」这类内置词。</p>
+  <h2>13. 怎么正常关掉面板？关了浏览器算吗？</h2>
+  <p>关浏览器标签<b>不算</b>——面板是独立的 pythonw 进程，会继续在后台跑（这样狗的服务不受影响）。
+  正确姿势：面板左下角「<b>退出面板</b>」→ 选「只退出面板」或「退出并停止机器狗服务」。</p>
+  <p>第二次双击 bat 不会起第二个面板：检测到已运行就只把现有页面打开（单实例）。</p>
+  <h2>14. 喊名字唤醒很慢 / 喊"退下"重复道别还卡</h2>
+  <p><b>唤醒词在哪改</b>：LinkDog 的唤醒词是固件侧配置，在 <b>WeXCube 小程序 → 工具 → 唤醒词配置</b> 里改（默认「小兵小兵」），服务端改不了。
+  <b>唤醒慢</b>：如果听到的词不在服务端唤醒词列表里，会被当成普通聊天，要等 LLM + TTS 才回。
+  0.3.9 起会把<b>名字自动加进唤醒词</b>，喊名字走"唤醒问候"快速路径，不用等模型。</p>
+  <p><b>退下卡住/连续道别</b>：服务端原本开着"结束对话时再让模型说一段告别"（end_prompt），
+  这句会被当成用户消息重放，退出或被打断时就会连说好几遍、还卡住。0.3.9 已关闭；
+  说「退下 / 退下吧 / 拜拜 / 再见」直接结束这次会话。</p>
+  <p>这些改动要<b>保存配置并重启语音服务</b>才生效（面板每次启动也会重新生成配置）。</p>
+  <p class="doc-foot">遇到这里没写的问题，把「运行管理 → 日志」勾上、复制最后 30 行发出来。</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>用自己的声音 · 声音复刻教程</title>
+<link rel="stylesheet" href="/assets/app.css" />
+<style>
+  body { background: var(--paper); }
+  .doc { max-width: 760px; margin: 0 auto; padding: 42px 24px 80px; position: relative; z-index: 1; }
+  .doc-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-3); text-decoration: none; margin-bottom: 26px; }
+  .doc-back:hover { color: var(--accent); }
+  .doc h1 { font-family: var(--font-display); font-size: 30px; letter-spacing: -0.025em; margin: 0 0 10px; font-weight: 640; }
+  .doc-lead { font-size: 14.5px; color: var(--ink-2); line-height: 1.75; margin: 0 0 8px; }
+  .doc-sub { font-size: 12.5px; color: var(--ink-3); margin: 0 0 26px; }
+  .doc h2 { font-size: 16px; margin: 32px 0 12px; letter-spacing: -0.01em; }
+  .step-list { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+  .step-item { position: relative; padding: 0 0 20px 46px; counter-increment: s; }
+  .step-item::before {
+    content: counter(s, decimal-leading-zero);
+    position: absolute; left: 0; top: 2px; width: 30px; height: 30px; border-radius: 9px;
+    background: #fff; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-num); font-size: 12px; color: var(--accent-2); box-shadow: var(--shadow-sm);
+  }
+  .step-item:not(:last-child)::after {
+    content: ""; position: absolute; left: 15px; top: 36px; bottom: 2px; width: 1px;
+    background: linear-gradient(180deg, var(--line), transparent);
+  }
+  .step-item b { display: block; font-size: 14px; margin-bottom: 3px; }
+  .step-item p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.7; }
+  .note { display: flex; gap: 10px; padding: 14px 16px; border-radius: 12px; background: rgba(43,138,62,.06);
+    border: 1px solid rgba(43,138,62,.18); font-size: 12.8px; color: #2b5e37; line-height: 1.7; margin: 18px 0; }
+  .warn { display: flex; gap: 10px; padding: 14px 16px; border-radius: 12px; background: rgba(183,121,31,.07);
+    border: 1px solid rgba(183,121,31,.22); font-size: 12.8px; color: #6b4a12; line-height: 1.7; margin: 18px 0; }
+  .doc table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 6px 0 4px; }
+  .doc th, .doc td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .doc th { font-size: 12px; color: var(--ink-3); font-weight: 600; }
+  .doc details { border-top: 1px solid var(--line); padding: 12px 0; }
+  .doc details summary { cursor: pointer; font-size: 13.5px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; }
+  .doc details summary::-webkit-details-marker { display: none; }
+  .doc details p { font-size: 13px; color: var(--ink-2); line-height: 1.75; margin: 8px 0 0; }
+  .doc-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .doc-foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-4); line-height: 1.7; }
+  code { word-break: break-all; }
+</style>
+</head>
+<body>
+<main class="doc">
+  <a class="doc-back" href="/">← 回到控制面板</a>
+  <h1>用自己的声音</h1>
+  <p class="doc-lead">百炼支持「声音复刻」：上传一小段录音，训练出一个专属音色，机器狗就用这个声音说话。整个过程在网页上完成，大约 10 分钟。</p>
+  <p class="doc-sub">训练需要一点时间，通常几分钟到半小时；期间可以先用预置音色。</p>
+
+  <h2>六步拿到自己的音色 ID</h2>
+  <ol class="step-list">
+    <li class="step-item">
+      <b>打开百炼控制台的「声音复刻」</b>
+      <p>登录后左侧菜单找到「音色复刻 / 声音复刻」，选择「CosyVoice 声音复刻」。</p>
+    </li>
+    <li class="step-item">
+      <b>录一段干净的人声</b>
+      <p>安静房间，离麦克风 20 厘米左右，正常语速读页面给的示例文本，10~30 秒即可。不要有背景音乐、回声、其他人说话。</p>
+    </li>
+    <li class="step-item">
+      <b>确认授权</b>
+      <p>必须是你自己的声音，或已获得本人书面授权。不要复刻他人声音用于对外发布。</p>
+    </li>
+    <li class="step-item">
+      <b>提交训练并等它完成</b>
+      <p>页面会显示进度。完成后音色列表里会出现一个很长、以 <code>cosyvoice-v3-flash-bailian-</code> 开头的 ID。</p>
+    </li>
+    <li class="step-item">
+      <b>复制音色 ID</b>
+      <p>点复制按钮。注意只要 ID 本身，不要带引号或空格。</p>
+    </li>
+    <li class="step-item">
+      <b>粘回面板并试听</b>
+      <p>「密钥参数 → 语音」：语音模型选 <b>CosyVoice v3 flash</b>，把 ID 填进「自定义音色 ID」，点「试听」。听到自己的声音就成功了，再点保存。</p>
+    </li>
+  </ol>
+
+  <div class="note">
+    <span>✓</span>
+    <span><b>模型要和音色配套。</b>复刻出来的音色只能配 <code>cosyvoice-v3-flash</code>（或 v3 系列）使用；选 v2 会报「音色不可用」。</span>
+  </div>
+
+  <h2>常见问题</h2>
+  <details>
+    <summary>试听报「音色不可用 / voice not found」<span class="muted">展开</span></summary>
+    <p>九成是模型和音色不配套：v3 复刻的音色要选 v3 flash。也可能是 ID 复制漏了几位，或者训练还没完成。</p>
+  </details>
+  <details>
+    <summary>预置音色为什么有的能用、有的报错<span class="muted">展开</span></summary>
+    <p>不同模型有各自的音色表，不能混用。面板会按模型切换音色列表；如果某个音色在你的账号上不可用，换一个或换 v3 flash 即可。</p>
+  </details>
+  <details>
+    <summary>复刻要多少钱<span class="muted">展开</span></summary>
+    <p>声音复刻本身按百炼的计费规则收费（有免费额度时先用额度），合成按字数/时长计费。具体价格以控制台为准。</p>
+  </details>
+  <details>
+    <summary>录坏了想重来<span class="muted">展开</span></summary>
+    <p>直接再提交一次即可，旧的音色可以留着，也可以在控制台删掉。</p>
+  </details>
+
+  <div class="doc-links">
+    <a class="btn btn-primary" href="https://help.aliyun.com/zh/model-studio/voice-cloning-user-guide" target="_blank" rel="noopener">打开声音复刻文档</a>
+    <a class="btn btn-secondary" href="https://bailian.console.aliyun.com/" target="_blank" rel="noopener">打开百炼控制台</a>
+    <a class="btn btn-ghost" href="/">回到面板</a>
+  </div>
+
+  <p class="doc-foot">本页只是操作指引。复刻他人声音可能涉及肖像权/声音权，请确保你有权使用。</p>
+</main>
+</body>
+</html>

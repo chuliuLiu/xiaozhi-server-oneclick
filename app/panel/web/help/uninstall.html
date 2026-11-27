@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>怎么卸载 · 小智本地服务</title>
+<link rel="stylesheet" href="/assets/app.css" />
+<style>
+  body { background: var(--paper); }
+  .doc { max-width: 760px; margin: 0 auto; padding: 42px 24px 80px; position: relative; z-index: 1; }
+  .doc-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-3); text-decoration: none; margin-bottom: 26px; }
+  .doc-back:hover { color: var(--accent); }
+  .doc h1 { font-family: var(--font-display); font-size: 30px; letter-spacing: -0.025em; margin: 0 0 10px; font-weight: 640; }
+  .doc-lead { font-size: 14.5px; color: var(--ink-2); line-height: 1.75; margin: 0 0 24px; }
+  .doc h2 { font-size: 16px; margin: 30px 0 10px; }
+  .doc p, .doc li { font-size: 13.2px; color: var(--ink-2); line-height: 1.8; }
+  .doc ol, .doc ul { padding-left: 20px; margin: 8px 0; }
+  .doc code { font-family: var(--font-mono); background: rgba(25,26,28,.06); padding: 1px 5px; border-radius: 5px; font-size: .92em; }
+  .note { display: flex; gap: 10px; padding: 14px 16px; border-radius: 12px; background: rgba(43,138,62,.06);
+    border: 1px solid rgba(43,138,62,.18); font-size: 12.8px; color: #2b5e37; line-height: 1.7; margin: 18px 0; }
+  .doc-foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-4); line-height: 1.7; }
+</style>
+</head>
+<body>
+<main class="doc">
+  <a class="doc-back" href="/">← 回到控制面板</a>
+  <h1>怎么卸载</h1>
+  <p class="doc-lead">这个工具是绿色版：<b>不写注册表、不装系统服务、不加开机启动、不改环境变量</b>。
+  卸载只有两件事——停掉进程、删掉文件夹；外加一条可能存在的防火墙规则。</p>
+
+  <h2>最快：双击根目录的 <code>卸载.bat</code></h2>
+  <ol>
+    <li>选 <b>1</b>：停止服务、清理防火墙规则，文件夹保留（排查/重装时用）。</li>
+    <li>选 <b>2</b>：停止并删除整个文件夹（不可恢复）。</li>
+  </ol>
+
+  <h2>手动：三步</h2>
+  <ol>
+    <li>面板 →「运行管理」→「停止」，然后关掉面板网页/窗口。</li>
+    <li>把 <code>xiaozhi-oneclick</code> 整个文件夹删掉。</li>
+    <li>删不掉时打开任务管理器，结束路径在本文件夹下的 <code>python.exe</code>，再删。</li>
+  </ol>
+
+  <h2>防火墙规则</h2>
+  <p>如果点过「连不上？放行防火墙」，会有一条名为 <code>XiaozhiServer</code> 的入站规则。
+  <code>卸载.bat</code> 会尝试删除；也可在「Windows Defender 防火墙 → 高级设置 → 入站规则」里删掉，
+  或管理员 PowerShell：<code>netsh advfirewall firewall delete rule name="XiaozhiServer"</code></p>
+
+  <div class="note">
+    <span>✓</span>
+    <span><b>想保留配置重装：</b>把 <code>data</code> 文件夹复制出来（settings.json / memory.db / 日志），
+    新包解压后放回去，再跑一次「安装部署」即可，密钥和记忆都在。</span>
+  </div>
+
+  <p class="doc-foot">不会在 %APPDATA%、Program Files 或计划任务里留下任何东西。</p>
+</main>
+</body>
+</html>

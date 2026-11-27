@@ -1,0 +1,38 @@
+# ── 用户数据与密钥：绝不入库 ──────────────────────────────────
+data/
+runtime/xiaozhi-server/data/
+runtime/xiaozhi-mqtt-gateway/.env*
+vendor/mqttgw/.env
+
+# ── 原始大文件：仓库里用同名 .zip 替代，首次启动自动还原 ──────
+runtime/bin/ffmpeg.exe
+runtime/node/node.exe
+runtime/xiaozhi-mqtt-gateway/
+runtime/xiaozhi-server/tmp/
+runtime/xiaozhi-server/models/SenseVoiceSmall/
+
+# ── 历史备份 / 打包产物 / 开发调试目录 ────────────────────────
+backup-old-0.9.6.zip
+xiaozhi-esp32-server-0.9.8.rar
+xiaozhi-esp32-server-0.9.8/
+dist/
+dev/
+shots/
+.overlay-backup/
+交接_20261108.md
+tools/audit_package.py
+
+# ── 便携环境机器相关（含绝对路径，换机即失效）─────────────────
+runtime/pyenv/pyvenv.cfg
+runtime/pyenv/Scripts/
+
+# ── 缓存 / 日志 / 系统文件 ────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pdb
+*.log
+*.part
+.DS_Store
+Thumbs.db
+/node_modules/.cache/

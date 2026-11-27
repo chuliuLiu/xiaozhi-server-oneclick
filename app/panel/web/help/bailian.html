@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>怎么获取千问AI平台 API Key · 小智本地服务</title>
+<link rel="stylesheet" href="/assets/app.css" />
+<style>
+  body { background: var(--paper); }
+  .doc { max-width: 760px; margin: 0 auto; padding: 42px 24px 80px; position: relative; z-index: 1; }
+  .doc-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-3); text-decoration: none; margin-bottom: 26px; }
+  .doc-back:hover { color: var(--accent); }
+  .doc h1 { font-family: var(--font-display); font-size: 30px; letter-spacing: -0.025em; margin: 0 0 10px; font-weight: 640; }
+  .doc-lead { font-size: 14.5px; color: var(--ink-2); line-height: 1.75; margin: 0 0 8px; }
+  .doc-sub { font-size: 12.5px; color: var(--ink-3); margin: 0 0 30px; }
+  .doc h2 { font-size: 16px; margin: 34px 0 12px; letter-spacing: -0.01em; }
+  .step-list { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+  .step-item {
+    position: relative; padding: 0 0 20px 46px; counter-increment: s;
+  }
+  .step-item::before {
+    content: counter(s, decimal-leading-zero);
+    position: absolute; left: 0; top: 2px;
+    width: 30px; height: 30px; border-radius: 9px;
+    background: #fff; border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-num); font-size: 12px; color: var(--accent-2);
+    box-shadow: var(--shadow-sm);
+  }
+  .step-item:not(:last-child)::after {
+    content: ""; position: absolute; left: 15px; top: 36px; bottom: 2px; width: 1px;
+    background: linear-gradient(180deg, var(--line), transparent);
+  }
+  .step-item b { display: block; font-size: 14px; margin-bottom: 3px; }
+  .step-item p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.7; }
+  .note {
+    display: flex; gap: 10px; padding: 14px 16px; border-radius: 12px;
+    background: rgba(43, 138, 62, 0.06); border: 1px solid rgba(43, 138, 62, 0.18);
+    font-size: 12.8px; color: #2b5e37; line-height: 1.7; margin: 18px 0;
+  }
+  .warn {
+    display: flex; gap: 10px; padding: 14px 16px; border-radius: 12px;
+    background: rgba(183, 121, 31, 0.07); border: 1px solid rgba(183, 121, 31, 0.22);
+    font-size: 12.8px; color: #6b4a12; line-height: 1.7; margin: 18px 0;
+  }
+  .doc table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 6px 0 4px; }
+  .doc th, .doc td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .doc th { font-size: 12px; color: var(--ink-3); font-weight: 600; }
+  .doc td:last-child { color: var(--ink-2); }
+  .doc details { border-top: 1px solid var(--line); padding: 12px 0; }
+  .doc details summary { cursor: pointer; font-size: 13.5px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; }
+  .doc details summary::-webkit-details-marker { display: none; }
+  .doc details p { font-size: 13px; color: var(--ink-2); line-height: 1.75; margin: 8px 0 0; }
+  .doc-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .doc-foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-4); line-height: 1.7; }
+</style>
+</head>
+<body>
+<main class="doc">
+  <a class="doc-back" href="/">← 回到控制面板</a>
+  <h1>怎么拿到千问AI平台 API Key</h1>
+  <p class="doc-lead">机器狗的「耳朵」（语音识别）、「嘴」（语音合成）和「脑子」（大模型）都跑在千问AI平台上。开通一次、拿一个 API Key，三样一起用。</p>
+  <p class="doc-sub">全程在网页上操作，不需要安装任何东西。大约 5 分钟。</p>
+
+  <h2>五步拿到 Key</h2>
+  <ol class="step-list">
+    <li class="step-item">
+      <b>打开千问AI平台控制台并登录</b>
+      <p>用支付宝或淘宝账号登录阿里云即可。第一次用需要做一次实名认证（个人认证几分钟就好）。</p>
+      <p style="margin: 6px 0 0">
+        <a class="link" href="https://platform.qianwenai.com/home" target="_blank" rel="noopener">https://platform.qianwenai.com/home</a>
+      </p>
+    </li>
+    <li class="step-item">
+      <b>开通「千问AI平台」服务</b>
+      <p>第一次进入控制台会提示开通，点一下开通（免费）。开通后才能调用语音和大模型接口。</p>
+    </li>
+    <li class="step-item">
+      <b>创建 API Key</b>
+      <p>页面左上角 →「API-Keys」→「创建 API Key」。复制 <code>sk-</code> 开头的那一串。</p>
+    </li>
+    <li class="step-item">
+      <b>粘回面板保存</b>
+      <p>回到「密钥参数」页，把 Key 粘进输入框，点「保存并测试」。看到「Key 能用」就成功了。</p>
+    </li>
+    <li class="step-item">
+      <b>确认账户里有可用额度</b>
+      <p>新账号一般有免费额度；额度用完会提示「余额不足」。在控制台「费用与成本」里充值即可，充多少用多少。</p>
+    </li>
+  </ol>
+
+  <div class="note">
+    <span>✓</span>
+    <span><b>一个 Key 就够了。</b>语音识别、语音合成、qwen 大模型都认这个 Key，不需要分别申请。</span>
+  </div>
+
+  <h2>要花多少钱</h2>
+  <table>
+    <tr><th>项目</th><th>怎么计费</th><th>体感</th></tr>
+    <tr><td>语音识别</td><td>按音频时长</td><td>很便宜，日常聊天一个月通常几块钱</td></tr>
+    <tr><td>语音合成</td><td>按合成字数/时长</td><td>同上</td></tr>
+    <tr><td>大模型</td><td>按输入输出 token</td><td>用 qwen3.8-flash 这类小模型，成本很低</td></tr>
+  </table>
+  <p class="doc-sub" style="margin-top:10px">具体价格和套餐（含 Token Plan）以千问AI平台控制台显示为准，这里不写死数字，免得过期误导你。</p>
+
+  <div class="warn">
+    <span>!</span>
+    <span><b>别买网上的「共享 Key」。</b>那种 Key 随时会被封，而且你的对话会经过别人的账号。自己在官网申请最稳，也更便宜。</span>
+  </div>
+
+  <h2>常见问题</h2>
+  <details>
+    <summary>填了 Key，但试听没有声音<span class="muted">展开</span></summary>
+    <p>按顺序排查：① Key 是否复制完整（<code>sk-</code> 开头，没有空格）；② 千问AI平台是否已开通；③ 账户是否有余额；④ 电脑能否正常上网。面板的「自检」会告诉你卡在哪一步。</p>
+  </details>
+  <details>
+    <summary>Key 会不会泄露<span class="muted">展开</span></summary>
+    <p>Key 只保存在这台电脑的 <code>data\settings.json</code> 里，只有当前 Windows 用户可以读取。面板不会把它上传到任何地方；日志里也会自动打码成 <code>sk-****</code>。</p>
+  </details>
+  <details>
+    <summary>能不能用别家大模型<span class="muted">展开</span></summary>
+    <p>可以。在「密钥参数 → 大脑」里切换成智谱，或者选「自定义」填任何 OpenAI 兼容的地址。语音仍然走百炼。</p>
+  </details>
+  <details>
+    <summary>换电脑了要重新申请吗<span class="muted">展开</span></summary>
+    <p>不用。把 Key 复制到新电脑的面板里就行；同时建议在千问AI平台控制台删掉旧 Key，避免泄露。</p>
+  </details>
+
+  <div class="doc-links">
+    <a class="btn btn-primary" href="https://platform.qianwenai.com/home" target="_blank" rel="noopener">打开千问AI平台</a>
+    <a class="btn btn-secondary" href="https://help.aliyun.com/zh/model-studio/models" target="_blank" rel="noopener">模型与计费说明</a>
+    <a class="btn btn-ghost" href="/">回到面板</a>
+  </div>
+
+  <p class="doc-foot">本页面只是操作指引，不代购、不转售任何 API Key。价格与活动以阿里云官网为准。</p>
+</main>
+</body>
+</html>
