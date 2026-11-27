@@ -26,18 +26,18 @@
 
 常见问题（启动慢 / 模型报错 / 端口占用 / 设备离线延迟）：面板左下角「常见问题」，或 `app\panel\web\help\faq.html`。
 
-第一次打开如果 Windows 弹「可能有害 / 无法验证发布者」，看 [第一次打开有安全提示？](/help/security.html)（页面右下角也有入口）。
+第一次打开如果 Windows 弹「可能有害 / 无法验证发布者」，看 [第一次打开有安全提示？](app/panel/web/help/security.html)（页面右下角也有入口）。
 
 ## 密钥怎么填
 
-![密钥配置](密钥配置.png)
+![密钥配置](%E5%AF%86%E9%92%A5%E9%85%8D%E7%BD%AE.png)
 
 1. 如果使用阿里千问 AI 平台的 API Key，只在第一处填写即可。
 2. LLM 里可以选择自己想要的大模型，并填入对应的大模型 API Key；如果用的就是千问 AI 平台的大模型，这一处可以**不填**——它会复用第一处的 Key。
 
 ## 设备 OTA 地址怎么填
 
-![设备 OTA 地址配置](设备OTA地址配置.png)
+![设备 OTA 地址配置](%E8%AE%BE%E5%A4%87OTA%E5%9C%B0%E5%9D%80%E9%85%8D%E7%BD%AE.png)
 
 小智服务启动后，需要把面板上的 OTA 地址写入到设备里。具体写入方法参考上图。
 
@@ -47,7 +47,7 @@
 - **默认音色 `longanhuan_v3.1`（龙安欢）**：预置音色，开箱即用；面板里可选一长串官方音色（龙安洋、许南川等），点「试听」确认。
 - **默认大脑是千问AI平台上的 DeepSeek（`deepseek-v4.1-flash-1017`）**：供应商是「千问AI平台」，和语音共用一个 Key。
 - 「DeepSeek 官网」是单独选项：base_url 是 `https://api.deepseek.com`，要用 DeepSeek 自己申请的 Key，和千问AI平台不通用。
-- 想用自己的声音：看 [声音复刻教程](/help/voice-clone.html)，把得到的音色 ID 填进「自定义音色 ID」。
+- 想用自己的声音：看 [声音复刻教程](app/panel/web/help/voice-clone.html)，把得到的音色 ID 填进「自定义音色 ID」。
 
 ## 目录
 
