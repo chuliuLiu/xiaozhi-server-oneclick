@@ -30,6 +30,8 @@ TOP_FILES = [
     "THIRD-PARTY.md",
     "🚀启动面板.bat",
     "卸载.bat",
+    "密钥配置.png",
+    "设备OTA地址配置.png",
 ]
 
 EXCLUDE_DIRS = {
@@ -52,11 +54,13 @@ COMPRESS_FILES = (
 COMPRESS_DIRS = (
     "runtime/xiaozhi-mqtt-gateway",
 )
+# 这些 .zip 由 build_inner_archives() 单独注入，不能让 collect() 再收一遍（否则重复条目 + 体积翻倍）
+INNER_ARCHIVE_PATHS = {f"{rel}.zip" for rel in (*COMPRESS_FILES, *COMPRESS_DIRS)}
 
 
 def should_skip(rel: Path) -> bool:
     s = rel.as_posix()
-    if s in COMPRESS_FILES:
+    if s in COMPRESS_FILES or s in INNER_ARCHIVE_PATHS:
         return True
     parts = set(rel.parts)
     if rel.parts[:2] == ("runtime", "pyenv") and (
